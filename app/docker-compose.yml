@@ -5,9 +5,7 @@ services:
     environment:
       - TZ=Asia/Seoul
     image: siyoun/hackerton2024-server:latest
-    command: pnpm start:migrate:prod
-    env_file:
-      - .env.product
+    command: pnpm start:prod
     ports:
       - 3000:3000
     depends_on:

@@ -19,6 +19,6 @@ jobs:
         - name: Build the Docker image
           run: docker build -t hackerton-server ./app/
         - name: taging
-          run: docker tag hackerton-server:latest siyoun/hackerton-server:latest
+          run: docker tag hackerton-server:latest siyoun/hackerton2024-server:latest
         - name: Push to Dockerhub
           run: docker push siyoun/hackerton-server:latest

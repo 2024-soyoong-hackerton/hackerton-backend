@@ -14,7 +14,6 @@ RUN corepack enable
 RUN corepack enable npm
 
 RUN pnpm i
-RUN npm install -g @nestjs/cli
 
 COPY . .
 
