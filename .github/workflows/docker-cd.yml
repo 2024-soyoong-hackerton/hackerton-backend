@@ -14,6 +14,6 @@ jobs:
       - name: Pull Docker image
         run: sudo docker pull siyoun/hackerton2024-server:latest
       - name: Delete Old docker container
-        run: docker compose down --rmi all
+        run: cd ./app && sudo docker compose down --rmi all
       - name: Run Docker Container
-        run: docker compose up -d
+        run: cd ./app && sudo docker compose up -d
