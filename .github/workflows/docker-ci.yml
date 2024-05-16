@@ -21,4 +21,4 @@ jobs:
         - name: taging
           run: docker tag hackerton-server:latest siyoun/hackerton2024-server:latest
         - name: Push to Dockerhub
-          run: docker push siyoun/hackerton-server:latest
+          run: docker push siyoun/hackerton2024-server:latest
