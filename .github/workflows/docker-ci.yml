@@ -17,7 +17,7 @@ jobs:
             username: ${{ secrets.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKERHUB_TOKEN }}
         - name: Build the Docker image
-          run: docker build -t hackerton-server .
+          run: docker build -t hackerton-server ./app/
         - name: taging
           run: docker tag hackerton-server:latest siyoun/hackerton-server:latest
         - name: Push to Dockerhub
