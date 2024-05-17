@@ -29,12 +29,12 @@ model memory {
   photo String[]
   description String
   age Int
-  estimation Float
+  estimation Int
 }
 
 model point {
   user user @relation(fields: [user_id], references: [id])
   user_id String @id
   x Int
-  y Float
+  y Int
 }
