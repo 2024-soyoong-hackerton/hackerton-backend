@@ -6,19 +6,21 @@ import { randomBytes, pbkdf2Sync } from 'crypto';
 import { UpdateUserDto } from './update-user.dto';
 import * as bcrypt from 'bcrypt';
 import { MemoryService } from '../memory/memory.service';
+import { AiService } from '../ai/ai.service';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly prismaservice: PrismaService,
     private readonly memoryservice: MemoryService,
+    private readonly aiservice: AiService,
   ) {}
 
   async create(data: CreateUserDto): Promise<user> {
     const content: user = {
       name: data.name,
       id: data.id,
-      password: await bcrypt.hash(data.password, 12),
+      password: data.password,
     };
     const user = await this.prismaservice.user.create({ data: content });
 
@@ -71,9 +73,15 @@ export class UserService {
         x: true,
         y: true,
         user: false,
-        memory: { select: { title: true } },
+        memory: { select: { title: true, content: true } },
       },
     });
+    const contents: string[] = []
+    points.forEach((item) => {
+      contents.push(item.memory.content);
+    })
+    // const tag = this.aiservice.getTag(contents);
+
 
     return points;
   }

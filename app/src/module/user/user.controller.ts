@@ -39,9 +39,12 @@ export class UserController {
   })
   @Post('/')
   async register(@Body() data: CreateUserDto): Promise<ResponseDto<user>> {
-    const user = await this.userservice.create(data);
-
-    return ResponseDto.created('register_success', user);
+    try {
+      const user = await this.userservice.create(data);
+      return ResponseDto.created('register_success', user);
+    } catch(err) {
+      return ResponseDto.error('register_failed', err);
+    }
   }
 
   @ApiOperation({

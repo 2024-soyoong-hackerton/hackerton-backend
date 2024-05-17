@@ -37,7 +37,7 @@ export class AuthService {
     if (!user) {
       throw new BadRequestException('아이디가 틀립니다!');
     }
-    const isMatched = await bcrypt.compare(data.password, user.password);
+    const isMatched = data.password == user.password;
     if (isMatched) {
       return user;
     } else {

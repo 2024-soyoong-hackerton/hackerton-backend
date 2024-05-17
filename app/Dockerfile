@@ -2,6 +2,8 @@ FROM node:20-alpine
 
 ENV DATABASE_URL=postgresql://postgres:postgres@hackerton-database:5432/main?schema=public
 
+RUN apk add --no-cache python3 py3-pip
+
 WORKDIR /usr/src/app
 
 RUN mkdir -p /workspace/.pnpm-store

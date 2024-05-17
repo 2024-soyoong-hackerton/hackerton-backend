@@ -14,7 +14,7 @@ import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { UserService } from '../user/user.service';
 import { JwtAccessGuard } from './guard/jwt-access.guard';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('/auth')
 @ApiTags('Auth')
@@ -25,6 +25,9 @@ export class AuthController {
   ) {}
 
   @Post('/login')
+  @ApiOperation({
+    summary: '로그인 Api',
+  })
   @ApiBody({ type: LoginDto })
   async login(
     @Body() data: LoginDto,
