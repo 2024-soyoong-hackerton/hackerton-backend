@@ -19,19 +19,19 @@ export class AiService {
     const max = Math.max(...data);
     const maxIndex = data.indexOf(max);
     if (maxIndex == 0) {
-      return '놀람';
+      return '언빌리버블! 인생';
     } else if (maxIndex == 1) {
-      return '공포';
+      return '스릴 넘치는 인생';
     } else if (maxIndex == 2) {
-      return '분노';
+      return '뜨겁게 불타는 인생';
     } else if (maxIndex == 3) {
-      return '슬픔';
+      return '차분하고 감성적인 인생';
     } else if (maxIndex == 4) {
-      return '중립';
+      return '소나무같은 인생';
     } else if (maxIndex == 5) {
-      return '혐오';
+      return '간이 배 밖에 나온 인생';
     } else if (maxIndex == 6) {
-      return '행복';
+      return '온화하고 평화로운 인생';
     }
   }
 }
