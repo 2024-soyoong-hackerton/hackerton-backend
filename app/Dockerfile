@@ -19,6 +19,6 @@ RUN pnpm i prisma
 COPY . .
 
 RUN npx prisma generate
-RUN prisma db push
+RUN npx prisma db push
 
 RUN pnpm build
