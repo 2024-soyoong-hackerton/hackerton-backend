@@ -14,7 +14,7 @@ import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { UserService } from '../user/user.service';
 import { JwtAccessGuard } from './guard/jwt-access.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
 @Controller('/auth')
 @ApiTags('Auth')
@@ -25,17 +25,20 @@ export class AuthController {
   ) {}
 
   @Post('/login')
+  @ApiBody({ type: LoginDto })
   async login(
     @Body() data: LoginDto,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<ResponseDto<null>> {
+  ): Promise<ResponseDto<any>> {
     console.log(data);
     const user = await this.authservice.verifyUser(data);
     if (user) {
       const accessToken = this.authservice.createAccessToken(user);
       res.setHeader('Authorization', 'Bearer ' + accessToken);
       res.cookie('access_token', accessToken);
-      return ResponseDto.success('login_success');
+      return ResponseDto.success('login_success', {
+        access_token: accessToken,
+      });
     } else {
       throw new UnauthorizedException({
         message: 'login_failed.',
