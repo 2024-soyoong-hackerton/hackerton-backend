@@ -17,7 +17,7 @@ RUN pnpm i
 
 COPY . .
 
-# To be added when the prisma setted
-# RUN npx prisma generate
+RUN npx prisma generate
+RUN npx prisma db push
 
 RUN pnpm build
