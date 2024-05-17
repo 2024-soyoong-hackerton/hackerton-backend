@@ -9,11 +9,11 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - database
+      - hackerton-database
 
-  database:
+  hackerton-database:
     image: postgres:16
-    container_name: database
+    container_name: hackerton-database
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres

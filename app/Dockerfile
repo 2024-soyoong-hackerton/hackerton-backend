@@ -1,6 +1,6 @@
 FROM node:20-alpine
 
-ENV DATABASE_URL=postgresql://postgres:postgres@database:5432/main?schema=public
+ENV DATABASE_URL=postgresql://postgres:postgres@hackerton-database:5432/main?schema=public
 
 WORKDIR /usr/src/app
 
