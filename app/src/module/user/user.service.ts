@@ -1,23 +1,24 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { user } from '@prisma/client';
+import { memory, user } from '@prisma/client';
 import { CreateUserDto } from './create-user.dto';
 import { randomBytes, pbkdf2Sync } from 'crypto';
 import { UpdateUserDto } from './update-user.dto';
+import * as bcrypt from 'bcrypt';
+import { MemoryService } from '../memory/memory.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prismaservice: PrismaService) {}
+  constructor(
+    private readonly prismaservice: PrismaService,
+    private readonly memoryservice: MemoryService,
+  ) {}
 
   async create(data: CreateUserDto): Promise<user> {
-    const salt = randomBytes(16).toString('base64');
     const content: user = {
       name: data.name,
       id: data.id,
-      password: pbkdf2Sync(data.password, salt, 10000, 64, 'SHA512').toString(
-        'base64',
-      ),
-      salt,
+      password: await bcrypt.hash(data.password, 12),
     };
     const user = await this.prismaservice.user.create({ data: content });
 
@@ -25,7 +26,10 @@ export class UserService {
   }
 
   async findOne(id: string): Promise<user> {
-    const user = await this.prismaservice.user.findFirst({ where: { id: id } });
+    const user = await this.prismaservice.user.findFirst({
+      where: { id: id },
+      include: { memories: true },
+    });
     if (!user) {
       return null;
     }
@@ -50,5 +54,11 @@ export class UserService {
     const user = await this.prismaservice.user.delete({ where: { id: id } });
 
     return user;
+  }
+
+  async findAllMemoryByUserId(id: string): Promise<memory[]> {
+    const memories = await this.memoryservice.findAllByUserId(id);
+
+    return memories;
   }
 }
