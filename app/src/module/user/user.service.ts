@@ -1,6 +1,6 @@
 import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { memory, user } from '@prisma/client';
+import { memory, point, user } from '@prisma/client';
 import { CreateUserDto } from './create-user.dto';
 import { randomBytes, pbkdf2Sync } from 'crypto';
 import { UpdateUserDto } from './update-user.dto';
@@ -60,5 +60,21 @@ export class UserService {
     const memories = await this.memoryservice.findAllByUserId(id);
 
     return memories;
+  }
+
+  async findAllPointByUserId(id: string): Promise<Partial<point>[]> {
+    const points = await this.prismaservice.point.findMany({
+      where: { user_id: id },
+      select: {
+        user_id: false,
+        memory_id: false,
+        x: true,
+        y: true,
+        user: false,
+        memory: { select: { title: true } },
+      },
+    });
+
+    return points;
   }
 }

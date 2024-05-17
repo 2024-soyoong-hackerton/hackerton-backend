@@ -18,7 +18,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ResponseDto } from 'src/types/response.dto';
-import { user } from '@prisma/client';
+import { memory, point, user } from '@prisma/client';
 import { CreateUserDto } from './create-user.dto';
 import { UpdateUserDto } from './update-user.dto';
 
@@ -26,9 +26,7 @@ import { UpdateUserDto } from './update-user.dto';
 @Injectable()
 @Controller('/user')
 export class UserController {
-  constructor(
-    private readonly userservice: UserService,
-  ) {}
+  constructor(private readonly userservice: UserService) {}
 
   @ApiOperation({
     summary: '사용자 생성; 회원가입',
@@ -114,5 +112,35 @@ export class UserController {
     const result = await this.userservice.deleteOne(id);
 
     return ResponseDto.success('delete_success', result);
+  }
+
+  @ApiOperation({
+    summary: '사용자가 작성한 모든 순간 조회',
+  })
+  @ApiParam({
+    type: String,
+    description: '사용자 id',
+    name: 'id',
+  })
+  @Get('/memory/:id')
+  async getmemories(@Param('id') id: string): Promise<ResponseDto<memory[]>> {
+    const memories = await this.userservice.findAllMemoryByUserId(id);
+
+    return ResponseDto.success('inquiry_success', memories);
+  }
+
+  @ApiOperation({
+    summary: '해당 사용자의 그래프 포인트 조회',
+  })
+  @ApiParam({
+    type: String,
+    description: '사용자 id',
+    name: 'id',
+  })
+  @Get('/graph/:id')
+  async get(@Param('id') id: string): Promise<ResponseDto<Partial<point>[]>> {
+    const points = await this.userservice.findAllPointByUserId(id);
+
+    return ResponseDto.success('inquiry_success', points);
   }
 }
