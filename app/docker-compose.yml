@@ -17,7 +17,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=Gaebop
+      - POSTGRES_DB=main
       - TZ=Asia/Seoul
     volumes:
       - db-data:/var/lib/postgresql/data
