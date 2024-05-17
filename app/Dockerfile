@@ -3,7 +3,7 @@ FROM node:20-alpine
 ENV DATABASE_URL=postgresql://postgres:postgres@hackerton-database:5432/main?schema=public
 
 RUN apk add --no-cache python3 py3-pip
-RUN apk add py3-numpy py3-pandas py3-scikit-learn openpyxl
+RUN apk add py3-numpy py3-pandas py3-scikit-learn py3-openpyxl
 
 WORKDIR /usr/src/app
 
