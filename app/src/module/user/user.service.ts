@@ -64,7 +64,7 @@ export class UserService {
     return memories;
   }
 
-  async findAllPointByUserId(id: string): Promise<Partial<point>[]> {
+  async findAllPointByUserId(id: string): Promise<Partial<any>> {
     const points = await this.prismaservice.point.findMany({
       where: { user_id: id },
       select: {
@@ -76,13 +76,15 @@ export class UserService {
         memory: { select: { title: true, content: true } },
       },
     });
-    const contents: string[] = []
+    let contents = '';
     points.forEach((item) => {
-      contents.push(item.memory.content);
-    })
-    // const tag = this.aiservice.getTag(contents);
+      contents += item.memory.content;
+      contents += ' ';
+    });
+    console.log(contents);
+    const tag = this.aiservice.getTag(contents);
+    console.log(tag);
 
-
-    return points;
+    return { points: points, tag: tag };
   }
 }

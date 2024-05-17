@@ -141,7 +141,7 @@ export class UserController {
     name: 'id',
   })
   @Get('/graph/:id')
-  async get(@Param('id') id: string): Promise<ResponseDto<Partial<point>[]>> {
+  async get(@Param('id') id: string): Promise<ResponseDto<Partial<any>>> {
     const points = await this.userservice.findAllPointByUserId(id);
 
     return ResponseDto.success('inquiry_success', points);
