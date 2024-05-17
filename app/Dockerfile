@@ -14,6 +14,7 @@ RUN corepack enable
 RUN corepack enable npm
 
 RUN pnpm i
+RUN pnpm i prisma
 
 COPY . .
 
