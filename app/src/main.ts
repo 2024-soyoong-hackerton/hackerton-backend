@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  app.setGlobalPrefix('/api');
   const config = new DocumentBuilder()
     .setTitle('타임탭스 api')
     .setDescription('타임탭스 api서버에서 사용되는 api문서입니다.')
@@ -12,8 +12,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-
-  app.setGlobalPrefix('/api');
 
   await app.listen(3000);
 }
