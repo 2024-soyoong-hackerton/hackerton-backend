@@ -42,7 +42,7 @@ export class UserController {
     try {
       const user = await this.userservice.create(data);
       return ResponseDto.created('register_success', user);
-    } catch(err) {
+    } catch (err) {
       return ResponseDto.error('register_failed', err);
     }
   }

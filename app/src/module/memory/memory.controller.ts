@@ -73,7 +73,7 @@ export class MemoryController {
     if (request.user != result.user_id) {
       return ResponseDto.error('권한이 없습니다!');
     }
-    
+
     return ResponseDto.success('inqury_success', result);
   }
 

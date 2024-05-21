@@ -10,7 +10,7 @@ export class AiService {
     let s = python.stdout.toString();
     s = s.replace(/[\[\]]/g, ''); // 대괄호 제거
     s = s.trim(); // 양쪽 공백 제거
-    let array = s.split(' ').map(Number); // 공백을 기준으로 분리하고 숫자로 변환
+    const array = s.split(' ').map(Number); // 공백을 기준으로 분리하고 숫자로 변환
     console.log(array);
     return this.tagging(array);
   }

@@ -37,7 +37,7 @@ export class ImageController {
     },
   })
   @ApiResponse({
-    type: ResponseDto<String>,
+    type: ResponseDto<string>,
   })
   @UseInterceptors(FileInterceptor('image'))
   async uploadImageImage(
